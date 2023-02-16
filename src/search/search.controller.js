@@ -1,11 +1,13 @@
 const { clinics } = require('../utils/data');
 
 const Search = (req, res, next) => {
-  const { name } = req.query;
+  const { name, state } = req.query;
+
   const result = clinics.filter(
-    (x) => x.name === name || x.clinicName === name
+    (x) => x.clinicName === name || x.stateCode === state
   );
-  res.status(200).send({ data: result });
+
+  res.status(200).send({ msg: 'Search ok', data: result ?? [] });
 };
 
 module.exports = Search;
