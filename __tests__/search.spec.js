@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const { app } = require('../src/app');
+const { clinics } = require('../src/utils/data');
 
 describe('Search Tests', () => {
   const getSearch = async (queryParams) => {
@@ -19,13 +20,14 @@ describe('Search Tests', () => {
   });
 
   it.each`
-    name            | state                 | length | responseCode
-    ${undefined}    | ${undefined}          | ${0}   | ${200}
-    ${undefined}    | ${dummy_state}        | ${0}   | ${200}
-    ${dummy_name}   | ${undefined}          | ${0}   | ${200}
-    ${correct_name} | ${undefined}          | ${2}   | ${200}
-    ${undefined}    | ${correct_state_abb}  | ${3}   | ${200}
-    ${undefined}    | ${correct_state_full} | ${3}   | ${200}
+    name            | state                 | length            | responseCode
+    ${undefined}    | ${undefined}          | ${clinics.length} | ${200}
+    ${undefined}    | ${dummy_state}        | ${0}              | ${200}
+    ${dummy_name}   | ${undefined}          | ${0}              | ${200}
+    ${correct_name} | ${undefined}          | ${2}              | ${200}
+    ${undefined}    | ${correct_state_abb}  | ${3}              | ${200}
+    ${undefined}    | ${correct_state_full} | ${3}              | ${200}
+    ${correct_name} | ${correct_state_abb}  | ${1}              | ${200}
   `(
     'returns $length records when clinic name is $name and state is $state',
     async ({ name, state, length, responseCode }) => {
