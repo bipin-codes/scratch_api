@@ -27,5 +27,4 @@ const clinics = [
     };
   }),
 ];
-
 module.exports = { clinics, NAME_CODE };
